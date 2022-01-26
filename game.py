@@ -3,6 +3,7 @@
 # - Clean up game loop
 # - Import heroes in smoother way
 # - Create aliases for hero names (common misspellings, shorthands, etc.)
+# test for account settings
 
 import numpy as np
 import random
