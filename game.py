@@ -1,23 +1,22 @@
+# Things to add:
+# - More properties of heros to give comparison on
+# - Clean up game loop
+# - Import heroes in smoother way
+# - Create aliases for hero names (common misspellings, shorthands, etc.)
+
 import numpy as np
 import random
 import time
+
+from Hero import *
 
 name_match = ''
 attr_match = ''
 range_match = ''
 
-class Hero:
-    def __init__(self, name, attr, range):
-        self.name = name
-        self.attr = attr
-        self.range = range
-
-    def printName(self):
-        print(self.name)
-
 def compare(guessed, correct):
     global name_match
-    if guessed.name == correct.name:
+    if guessed.name.lower() == correct.name.lower():
         name_match = 'O'
     else: name_match = 'X'
 
@@ -53,10 +52,10 @@ secret_hero = hero_list[random.randint(0,len(hero_list))]
 
 guess = ''
 
-while guess != secret_hero.name:  # some redundancy in this condition
+while guess.lower() != secret_hero.name.lower():  # some redundancy in this condition
     guess = input("Guess the hero: ")
     for hero in hero_list:
-        if hero.name == guess:
+        if hero.name.lower() == guess.lower():
             guessed_hero = hero
             compare(guessed_hero, secret_hero)
 
