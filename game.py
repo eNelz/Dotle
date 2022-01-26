@@ -31,6 +31,11 @@ def compare(guessed, correct):
         range_match = 'O'
     else: range_match = 'X'
 
+    print('Name\t ' +  'Attribute\t ' + 'Range\n' + name_match + '\t\t' + attr_match + '\t\t' + range_match)
+    if name_match == 'O':
+        return True
+    else: return False
+
 abaddon = Hero('Abaddon', 'STR', 'melee')
 alchemist = Hero('Alchemist', 'STR', 'melee')
 ancient_apparition = Hero('Ancient Apparition', 'INT', 'ranged')
@@ -48,8 +53,12 @@ secret_hero = hero_list[random.randint(0,len(hero_list))]
 
 guess = ''
 
-while guess != secret_hero.name:
+while guess != secret_hero.name:  # some redundancy in this condition
     guess = input("Guess the hero: ")
+    for hero in hero_list:
+        if hero.name == guess:
+            guessed_hero = hero
+            compare(guessed_hero, secret_hero)
 
 print("You got it!")
 time.sleep(10)
