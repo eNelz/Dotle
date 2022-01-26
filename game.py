@@ -3,7 +3,8 @@
 # - Clean up game loop
 # - Import heroes in smoother way
 # - Create aliases for hero names (common misspellings, shorthands, etc.)
-# test for account settings
+
+# ↑↓√
 
 import numpy as np
 import random
@@ -14,38 +15,46 @@ from Hero import *
 name_match = ''
 attr_match = ''
 range_match = ''
+ms_match =  ''
 
 def compare(guessed, correct):
     global name_match
     if guessed.name.lower() == correct.name.lower():
-        name_match = 'O'
+        name_match = '√'
     else: name_match = 'X'
 
     global attr_match
     if guessed.attr == correct.attr:
-        attr_match = 'O'
+        attr_match = '√'
     else: attr_match = 'X'
 
     global range_match
     if guessed.range == correct.range:
-        range_match = 'O'
+        range_match = '√'
     else: range_match = 'X'
 
-    print('Name\t ' +  'Attribute\t ' + 'Range\n' + name_match + '\t\t' + attr_match + '\t\t' + range_match)
-    if name_match == 'O':
+    global ms_match
+    if guessed.ms == correct.ms:
+        ms_match = '√'
+    elif guessed.ms > correct.ms:
+        ms_match = '↓'
+    else: ms_match = '↑'
+
+    print('Name\t' +  'Attribute\t' + 'Range\t' + 'Move Speed\n' + name_match + '\t' + attr_match + '\t\t' + range_match + '\t' + ms_match)
+    if name_match == '√':
         return True
     else: return False
 
-abaddon = Hero('Abaddon', 'STR', 'melee')
-alchemist = Hero('Alchemist', 'STR', 'melee')
-ancient_apparition = Hero('Ancient Apparition', 'INT', 'ranged')
-antimage = Hero('Anti-Mage', 'AGI', 'melee')
-arc_warden = Hero('Arc Warden', 'AGI', 'ranged')
-axe = Hero('Axe', 'STR', 'melee')
-bane = Hero('Bane', 'INT', 'ranged')
-batrider = Hero('Batrider', 'INT', 'ranged')
-beastmaster = Hero('Beastmaster', 'STR', 'melee')
-bloodseeker = Hero('Bloodseeker', 'AGI', 'melee')
+abaddon = Hero('Abaddon', 'STR', 'melee', 325)
+alchemist = Hero('Alchemist', 'STR', 'melee', 305)
+ancient_apparition = Hero('Ancient Apparition', 'INT', 'ranged', 285)
+antimage = Hero('Anti-Mage', 'AGI', 'melee', 310)
+arc_warden = Hero('Arc Warden', 'AGI', 'ranged', 285)
+axe = Hero('Axe', 'STR', 'melee', 310)
+bane = Hero('Bane', 'INT', 'ranged', 305)
+batrider = Hero('Batrider', 'INT', 'ranged', 300)
+beastmaster = Hero('Beastmaster', 'STR', 'melee', 305)
+bloodseeker = Hero('Bloodseeker', 'AGI', 'melee', 300)
 
 hero_list = [abaddon, alchemist, ancient_apparition, antimage, arc_warden, axe, bane, batrider, beastmaster, bloodseeker]
 
@@ -61,7 +70,7 @@ while guess.lower() != secret_hero.name.lower():  # some redundancy in this cond
             compare(guessed_hero, secret_hero)
 
 print("You got it!")
-time.sleep(10)
+# time.sleep(10)
 
 """
 bounty_hunter = 
