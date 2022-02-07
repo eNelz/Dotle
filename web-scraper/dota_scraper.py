@@ -15,25 +15,30 @@ class hero_obj():
         self.range = range
         self.ms = ms
 
+    def hero_info(self):
+        return {'Name': self.name, 'Attribute': self.attr, 'Attack Range' : self.range, 'Movement Speed' : self.ms}
+
 class dota_scraper():
 
-    def __init__(self, hero: str): # Consider making no arguments here and instead adding one to get_hero_info
-        self.hero_url = "https://dota2.fandom.com/wiki/"+hero
-        self.hero_soup = None
-        self.hero_info = []
+    def __init__(self): # Consider making no arguments here and instead adding one to get_hero_info
+        self.hero_objs = []
 
+    """
     def preprocess(self):
         self.get_hero_soup()
         page_name = self.hero_soup.h1.text
         hero_name = page_name.strip()
+    """
 
-    def get_hero_soup(self):
-        fid = urllib.request.urlopen(self.hero_url)
+    def get_hero_soup(self, hero: str):
+        hero_url = "https://dota2.fandom.com/wiki/"+hero
+        fid = urllib.request.urlopen(hero_url)
         webpage = fid.read().decode('utf-8')
-        self.hero_soup = BeautifulSoup(webpage, 'html.parser')
+        hero_soup = BeautifulSoup(webpage, 'html.parser')
+        return hero_soup
 
-    def get_hero_info(self):
-        table = self.hero_soup.find('table', attrs={'class':'infobox'})
+    def get_hero_info(self, hero_soup: BeautifulSoup):
+        table = hero_soup.find('table', attrs={'class':'infobox'})
         table_body = table.find('tbody')
         table_header = table.find('th')
         rows = table_body.find_all('tr')
@@ -48,4 +53,4 @@ class dota_scraper():
         ms_row = rows[28].find_all('td')
         ms = int(ms_row[1].text.split()[0])
 
-        return {'Name': name, 'Attribute': attr, 'Attack Range' : range, 'Movement Speed' : ms}
+        return hero_obj(name, attr, range, ms)
