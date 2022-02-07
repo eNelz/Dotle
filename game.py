@@ -20,8 +20,8 @@ ms_match =  ''
 def compare(guessed, correct):
     global name_match
     if guessed.name.lower() == correct.name.lower():
-        name_match = '√'
-    else: name_match = 'X'
+        name_match = True
+    else: name_match = False
 
     global attr_match
     if guessed.attr == correct.attr:
@@ -34,16 +34,16 @@ def compare(guessed, correct):
     else: range_match = 'X'
 
     global ms_match
+    hero_ms = ' (' + str(guessed.ms) + ')'
     if guessed.ms == correct.ms:
-        ms_match = '√'
+        ms_match = '√' + hero_ms
     elif guessed.ms > correct.ms:
-        ms_match = '↓'
-    else: ms_match = '↑'
+        ms_match = '↓' + hero_ms
+    else: ms_match = '↑' + hero_ms
 
-    print('Name\t' +  'Attribute\t' + 'Range\t' + 'Move Speed\n' + name_match + '\t' + attr_match + '\t\t' + range_match + '\t' + ms_match)
-    if name_match == '√':
-        return True
-    else: return False
+    print('Hero\t\t\t\t' +  'Attribute\t' + 'Range\t' + 'Move Speed\n' + guessed.name + '\t\t\t\t' + attr_match + '\t\t' + range_match + '\t' + ms_match)
+    # fix print statement to be equal with all lengths of hero names
+    return name_match
 
 abaddon = Hero('Abaddon', 'STR', 'melee', 325)
 alchemist = Hero('Alchemist', 'STR', 'melee', 305)
